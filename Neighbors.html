@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>4 and 8 Neighbors</title>
+    <script src="lib/ImageJS.js"></script>
+
+    <style>
+        .img {
+            display: inline-table;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="rawCanvas" class="card" width="320" height="240" hidden></canvas>
+
+<figure class="img">
+    <image id="raw"></image>
+    <figcaption>Original</figcaption>
+</figure>
+<figure class="img">
+    <image id="four"></image>
+    <figcaption>Four Neighbors Original</figcaption>
+</figure>
+<figure class="img">
+    <image id="fourOverlap"></image>
+    <figcaption>Four Neighbors Computed</figcaption>
+</figure>
+<figure class="img">
+    <image id="eight"></image>
+    <figcaption>Eight Neighbors Original</figcaption>
+</figure>
+<figure class="img">
+    <image id="eightOverlap"></image>
+    <figcaption>Eight Neighbors Computed</figcaption>
+</figure>
+
+
+<script>
+    window.imagejs = new ImageJS(rawCanvas);
+    window.imagejs.loadImageURL('img/wallpaper18.jpg', function () {
+        raw.src = rawCanvas.toDataURL();
+
+        window.imagejs.computeFourNeighborhood();
+        four.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeFourNeighborhood(true);
+        fourOverlap.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeEightNeighborhood();
+        eight.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeEightNeighborhood(true);
+        eightOverlap.src = rawCanvas.toDataURL();
+
+        //window.imagejs.reset();
+    });
+</script>
+
+</body>
+</html>
