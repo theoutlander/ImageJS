@@ -10,109 +10,56 @@
             display: inline-table;
         }
     </style>
-
-    <script>
-
-        var gaussianBlur1 = [1,1,1,1,1,1,1,1,1];
-        var gaussianBlur = [
-            0.045, 0.122, 0.045,
-            0.122, 0.332, 0.122,
-            0.045, 0.122, 0.045
-        ];
-
-        var gaussianBlur3 = [
-            1/12, 1/6, 1/12,
-            1/6, 1/3, 1/6,
-            1/12, 1/6, 1/12
-        ];
-
-        var gaussianBlur4 = [
-            1/4, 1/2, 1/4,
-            1/2, 1, 1/2,
-            1/4, 1/2, 1/4
-        ];
-
-        function handleImageFile(path){
-
-            var reader = new FileReader();
-            reader.onload = function(event) {
-                console.log(event.target);
-                load(event.target.result);
-            }
-
-            reader.readAsDataURL(path);
-        }
-
-        function load(img) {
-
-            window.imagejs = new ImageJS(rawCanvas);
-            //window.imagejs.loadImageURL('img/wallpaper18.jpg', function () {
-            window.imagejs.loadImageURL(img, function () {
-                raw.src = rawCanvas.toDataURL();
-/*
-                window.imagejs.computeFourNeighborhood();
-                four.src = rawCanvas.toDataURL();
-
-                window.imagejs.reset();
-                window.imagejs.computeFourNeighborhood(true);
-                fourOverlap.src = rawCanvas.toDataURL();
-
-                window.imagejs.reset();
-                window.imagejs.computeEightNeighborhood();
-                eight.src = rawCanvas.toDataURL();
-
-                window.imagejs.reset();
-                window.imagejs.computeEightNeighborhood(true);
-                eightOverlap.src = rawCanvas.toDataURL();
-*/
-
-                window.imagejs.reset();
-                window.imagejs.computeEightNeighborhood(false, 19);
-                window.imagejs.computeEightNeighborhood(false, 19);
-                window.imagejs.computeEightNeighborhood(false, 19);
-                eight.src = rawCanvas.toDataURL();
-
-                //window.imagejs.reset();
-                ////window.imagejs.computeEightNeighborhoodDensity(false, 9);
-                //window.imagejs.computeGaussian(false, 3, gaussianBlur4);
-                //eightDensity3.src = rawCanvas.toDataURL();
-            });
-        }
-    </script>
 </head>
 <body>
 
-<label for="imageFile">Choose an Image</label>
-<input type="file" id="imageFile" onChange="handleImageFile(this.files[0])"/>
-
-<hr/>
-
-<canvas id="rawCanvas" class="card" width="640" height="480" hidden></canvas>
+<canvas id="rawCanvas" class="card" width="320" height="240" hidden></canvas>
 
 <figure class="img">
     <image id="raw"></image>
     <figcaption>Original</figcaption>
 </figure>
-<!--<figure class="img" hidden>-->
-    <!--<image id="four"></image>-->
-    <!--<figcaption>Four Neighbors Original</figcaption>-->
-<!--</figure>-->
-<!--<figure class="img" hidden>-->
-    <!--<image id="fourOverlap"></image>-->
-    <!--<figcaption>Four Neighbors Computed</figcaption>-->
-<!--</figure>-->
+<figure class="img">
+    <image id="four"></image>
+    <figcaption>Four Neighbors Original</figcaption>
+</figure>
+<figure class="img">
+    <image id="fourOverlap"></image>
+    <figcaption>Four Neighbors Computed</figcaption>
+</figure>
 <figure class="img">
     <image id="eight"></image>
     <figcaption>Eight Neighbors Original</figcaption>
 </figure>
-<!--<figure class="img" hidden>-->
-    <!--<image id="eightOverlap"></image>-->
-    <!--<figcaption>Eight Neighbors Computed</figcaption>-->
-<!--</figure>-->
-<!--<figure class="img">-->
-    <!--<image id="eightDensity3"></image>-->
-    <!--<figcaption>Eight Neighbors Original Density 9 (computed 3 times)</figcaption>-->
-<!--</figure>-->
+<figure class="img">
+    <image id="eightOverlap"></image>
+    <figcaption>Eight Neighbors Computed</figcaption>
+</figure>
+
+
+<script>
+    window.imagejs = new ImageJS(rawCanvas);
+    window.imagejs.loadImageURL('img/wallpaper18.jpg', function () {
+        raw.src = rawCanvas.toDataURL();
+
+        window.imagejs.computeFourNeighborhood();
+        four.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeFourNeighborhood(true);
+        fourOverlap.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeEightNeighborhood();
+        eight.src = rawCanvas.toDataURL();
+
+        window.imagejs.reset();
+        window.imagejs.computeEightNeighborhood(true);
+        eightOverlap.src = rawCanvas.toDataURL();
+
+        //window.imagejs.reset();
+    });
+</script>
 
 </body>
 </html>
